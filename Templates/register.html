@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" type="text/css">
+    <script type="text/javascript" >
+        function showAlert(){
+            if (t==1){
+                alert('User Name already Taken');
+            }
+            if (t==2){
+                alert('User email already exists');
+            }
+            if (t==3){
+
+                alert('Password not matching');
+            }
+        }
+    </script>
+   
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <form action="home" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="submit-button">Register</button>
+        </form>
+    </div>
+    {% if name_exists %}
+        <script type="text/javascript">
+            var t=1;
+            showAlert();
+        </script>
+    {% endif %}
+    {% if email_exists %}
+        <script type="text/javascript">
+           var t=2;
+           showAlert();
+        </script>
+    {% endif %}
+    {% if password_not_match %}
+        <script type="text/javascript">
+            var t=3;
+            showAlert();
+        </script>
+    {% endif %}
+
+</body>
+</html>
